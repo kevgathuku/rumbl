@@ -4,10 +4,10 @@ defmodule Rumbl.Accounts do
   """
   alias Rumbl.Accounts.User
 
-  def list_users do
+  def list_users() do
     [
-      %User{id: "1", name: "Kevin", username: "kev"},
-      %User{id: "2", name: "Mark", username: "mark"},
+      %User{id: "1", name: "Kevin N", username: "kev"},
+      %User{id: "2", name: "Mark Cuban", username: "mark"},
       %User{id: "3", name: "Mr. Wonderful", username: "wunder"}
     ]
   end
