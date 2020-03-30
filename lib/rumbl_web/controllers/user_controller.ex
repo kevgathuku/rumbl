@@ -25,6 +25,7 @@ defmodule RumblWeb.UserController do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
+        |> RumblWeb.Auth.login(user)
         |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: Routes.user_path(conn, :index))
 
@@ -40,7 +41,7 @@ defmodule RumblWeb.UserController do
       conn
       |> put_flash(:error, "You must be logged in to access that page")
       |> redirect(to: Routes.page_path(conn, :index))
-      # stop any downstream transformations
+      # preventing further plugs downstream from being invoked
       |> halt()
     end
   end

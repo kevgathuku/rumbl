@@ -21,6 +21,15 @@ defmodule Rumbl.Accounts do
     Repo.get_by(User, params)
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> change_user(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
