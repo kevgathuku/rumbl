@@ -21,6 +21,24 @@ defmodule Rumbl.Accounts do
     Repo.get_by(User, params)
   end
 
+  def authenticate_by_username_and_pass(username, given_pass) do
+    user = get_user_by(username: username)
+
+    cond do
+      user && Pbkdf2.verify_pass(given_pass, user.password_hash) ->
+        {:ok, user}
+
+      # Bad password
+      user ->
+        {:error, :unauthorized}
+
+      # Username does not exist in DB
+      true ->
+        Pbkdf2.no_user_verify()
+        {:error, :not_found}
+    end
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
